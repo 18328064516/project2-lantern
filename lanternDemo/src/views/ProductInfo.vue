@@ -6,8 +6,8 @@
                  <!-- 商品分类表 -->
                 <div class="middle41" >
                     <ul>
-                        <li class="li1" v-for="(item,k) of ProductsList" :key="k" v-bind:class="{active:currentIndex == k}">
-                            <span  v-text="item.sname" @click="goto(k+1)" class="sanlei"></span>
+                        <li class="li1" v-for="(item,k) of ProductsList" :key="k"  :class="[currentIndex === k?'active':'']" @click="goto(k)">
+                            <span  v-text="item.sname"  class="sanlei"></span>
                         </li>
                     </ul>
                 </div>
@@ -85,10 +85,11 @@ export default {
     },
     methods:{
         // 点击商品分类列表将列表id传给url
-        goto(cid){
-            console.log(cid);
-            this.$router.push(`/products/${cid}`);
-            this.currentIndex=cid-1;
+        goto(k){
+            //console.log(k);
+            this.currentIndex=k;
+            //页数从0开始，但分类id是从1开始的
+            this.$router.push(`/products/${k+1}`);
             // console.log(this.currentIndex);
        }, 
        change(n,e){
@@ -155,18 +156,9 @@ export default {
         height: 300px;
         font-family: 'Microsoft YaHei';
         font-size: 18px;
-        color: #999999;
         line-height: 102.000px;
-        
-        /* font-weight: normal;
-        font-style: normal;
-        
-        text-align: left;
-        
-        height: 102.000px; */
     }
-    .li1 a{text-decoration: none;}
-    .sanlei:hover{color: black;}
+    .li1{color: #999999;} 
     ul li .lie{width: 300px; float: left;padding: 15px 10px;}
     .ksgm p{
         width: 300px;height:32px;
@@ -196,4 +188,5 @@ export default {
     }
     
     .spjg p{font-size: 15px;padding-top:0;margin-bottom: 20px;margin-top: 0;}
+    .active{color: black;}
 </style>
